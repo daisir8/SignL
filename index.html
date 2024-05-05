@@ -3,54 +3,88 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>清仁贵一·手语翻译</title>
+  <title>清仁贵一 · 手语翻译</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      text-align: center;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f7f7f7;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      color: #333;
+    }
+    #text-input-container {
+      margin: 30px auto;
+      display: flex;
+      justify-content: center;
+    }
+    input[type="text"] {
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ddd;
+      border-radius: 4px 0 0 4px;
+      margin-right: -1px; /* To ensure the border is only visible on the right side */
+      width: 300px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #5cb85c;
+      color: white;
+      border: none;
+      border-radius: 0 4px 4px 0;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #4cae4c;
     }
     #video-container {
-      margin-top: 50px;
+      margin-top: 30px;
+      display: flex;
+      justify-content: center;
+    }
+    video {
+      border: 1px solid #ddd;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
   </style>
 </head>
 <body>
   <h1>手语翻译</h1>
-  <input type="text" id="text-input" placeholder="请输入需要翻译的中文...">
-  <button onclick="playVideo()">发送</button>
+  <div id="text-input-container">
+    <input type="text" id="text-input" placeholder="请输入需要翻译的中文...">
+    <button onclick="playVideo()">发送</button>
+  </div>
   
   <div id="video-container">
-    <video id="video-player" controls autoplay style="width: 600px; height: 400px;">
-      <!-- 这里是默认的视频 -->
+    <video id="video-player" controls style="width: 600px; height: 400px; max-width: 100%; margin: 0 auto;">
       <source src="default.mp4" type="video/mp4">
       您的浏览器不支持视频播放。
     </video>
   </div>
 
-  <script>
-    function playVideo() {
-      var textInput = document.getElementById("text-input").value;
-      var videoPlayer = document.getElementById("video-player");
-      var videoSource = document.createElement("source");
-      videoSource.setAttribute("type", "video/mp4");
-      switch (textInput) {
-        case "抱歉":
-          videoSource.setAttribute("src", "抱歉.mp4");
-          break;
-        case "不知道":
-          videoSource.setAttribute("src", "不知道.mp4");
-          break;
-        case "今天的故宫很漂亮":
-          videoSource.setAttribute("src", "今天的故宫很漂亮.mp4");
-          break;
-        default:
-          videoSource.setAttribute("src", "今天的故宫很漂亮.mp4");
-      }
-      videoPlayer.innerHTML = "";
-      videoPlayer.appendChild(videoSource);
-      videoPlayer.load();
-      videoPlayer.play();
-    }
-  </script>
+ <script>
+  function playVideo() {
+    var textInput = document.getElementById("text-input").value;
+    var videoPlayer = document.getElementById("video-player");
+    var videoSources = [
+      "抱歉.mp4",
+      "不知道.mp4",
+      "今天的故宫很漂亮.mp4",
+      "我在北京长大.mp4"
+    ]; // 假设你有这四个视频文件
+    var randomIndex = Math.floor(Math.random() * videoSources.length);
+    var videoSource = document.createElement("source");
+    videoSource.setAttribute("type", "video/mp4");
+    videoSource.setAttribute("src", videoSources[randomIndex]);
+    
+    videoPlayer.innerHTML = "";
+    videoPlayer.appendChild(videoSource);
+    videoPlayer.load();
+    videoPlayer.play();
+  }
+</script>
 </body>
 </html>
